@@ -1,0 +1,364 @@
+check node version
+node -v
+-----------------------
+
+for fortend 
+
+1)install the npm 
+npm init vite 
+
+	give project name client-project/
+ 	1.Select a framework: React
+ 	2. Select a variant: JavaScript
+
+patil@LAPTOP-1N62O8NA MINGW64 /e/fsd
+$ cd client-project/
+
+npm install
+npm run dev
+
+then install bootstrap
+npm install bootstrap axios react-router-d
+
+____________________________________
+
+create a folder server
+cd server
+npm init -y
+
+install nodemon
+npm install express mongoose cors nodemon
+
+______________________________________________
+in folder create a file index.js
+_____________________________________
+
+in server folder  package.js in that add the script
+
+ "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+_____________________________________________
+
+remove 
+
+main.jsx 
+remove the import './index.css'
+
+App.js 
+remove the import './App.css'
+_______________________________________
+
+in src --> create a file Singup.jsx
+
+Singup.jsx
+import React from 'react';
+
+const Singup = () => {
+  return (
+    <div className="d-flex justify-content-center align-items-center vh-100" style={{ backgroundColor: '#5d6d7e' }}>
+      <div className="p-5 bg-white shadow rounded" style={{ width: '350px' }}>
+        <h2 className="mb-4">Register</h2>
+
+        <div className="mb-3">
+          <label className="form-label">Name</label>
+          <input type="text" className="form-control" placeholder="Enter Name" />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Email</label>
+          <input type="email" className="form-control" placeholder="Enter Email" />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Password</label>
+          <input type="password" className="form-control" placeholder="Enter Password" />
+        </div>
+
+        <button className="btn btn-success w-100 mb-3">Register</button>
+
+        <p className="text-center">Already Have an Account</p>
+        <button className="btn btn-secondary w-100">Login</button>
+      </div>
+    </div>
+  );
+};
+
+export default Singup;
+___________________________________________________________________
+
+App.jsx
+
+import { useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Singup from './Singup'
+
+function App() {
+
+  return (
+   <div>
+    <Singup />
+   </div>
+  )
+}
+
+export default App
+___________________________________________
+
+adding the router  in App.jsx
+
+import { useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Singup from './Singup'
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import Login from './Login'
+
+
+
+function App() {
+
+  return (
+   <div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/register' element={<Singup/>}></Route>
+        <Route path='/login' element={<Login/>}></Route>
+      </Routes>
+      </BrowserRouter>
+
+   
+   </div>
+  )
+}
+
+export default App
+
+
+
+________________________________________
+
+in src --> create a file Login.jsx
+
+import React from "react";
+function Login(){
+    return(
+        <div>
+        login
+        </div>
+    );
+}
+export default Login;
+
+________________________________________
+
+Singup.jsx
+import React from 'react';
+import axios from 'axios';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+const Signup = () => {
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const navigate = useNavigate()
+    
+    
+    const handleSubmit = (e) =>{
+      e.preventDefault()
+      axios.post('http://localhost:3001/register',{name, email, password})
+      .then(result => {console.log(result)
+        navigate('/login')
+    
+    
+      })
+      .catch(err=>console.log(err))
+    }
+    
+      return (
+        <div className="d-flex justify-content-center align-items-center vh-100" style={{ backgroundColor: '#5d6d7e'}}>
+          <div className="p-5 bg-white shadow rounded" style={{ width: '350px' }}>
+            <h2 className="mb-4">Register</h2>
+            <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label">Name</label>
+              <input type="text" className="form-control" placeholder="Enter Name" onChange={(e)=>setName(e.target.value)}/>
+            </div>
+    
+            <div className="mb-3">
+              <label className="form-label">Email</label>
+              <input type="email" className="form-control" placeholder="Enter Email" onChange={(e)=>setEmail(e.target.value)}/>
+            </div>
+    
+            <div className="mb-3">
+              <label className="form-label">Password</label>
+              <input type="password" className="form-control" placeholder="Enter Password" onChange={(e)=>setPassword(e.target.value)}/>
+            </div>
+    
+            <button type="submit" className="btn btn-success w-100 mb-3">Register</button>
+            </form>
+            <p className="text-center">Already Have an Account</p>
+            <Link to="/login" className="btn btn-secondary w-100">Login</Link>
+          </div>
+        </div>
+      );
+    };
+    
+    export default Signup;
+____________________________________________________________________________________
+
+open mongodb 
+
+add a connaction 
+give a database name is employee and collection name is register
+
+____________________________________________________
+
+in server folder create a folder Models 
+
+in models--> create a file Employee.js
+
+const mongoose = require("mongoose")
+
+const EmployeeSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String
+})
+
+const EmployeeModel=mongoose.model("employees", EmployeeSchema)
+
+module.exports=EmployeeModel
+______________________________________________
+
+goto to the server folder 
+
+index.js
+const express = require("express")
+const mongoose = require("mongoose")
+const cors = require("cors")
+const EmployeeModel = require('./models/Employee')
+
+const app = express()
+app.use(express.json())
+app.use(cors())
+
+//mongobd cooncetion and coolection name is employee
+mongoose.connect("mongodb://127.0.0.1:27017/employee")
+
+//login Router
+app.post('/login',(req,res)=>{
+    const {email, password}=req.body;
+    EmployeeModel.findOne({email:email})
+    .then(user =>{
+        if(user){
+            if(user.password === password){
+                res.json("Success")
+            }
+            else{
+                res.json("the password is wrong")
+            }
+        }
+        else{
+            res.json("No Exit the record")
+        }
+    })
+})
+
+//register router
+app.post('/register',(req,res)=>{
+    EmployeeModel.create(req.body)
+    .then(employees => res.json(employees))
+    .catch(err => res.json(err))
+})
+
+//listen port 3001
+app.listen(3001, ()=>{
+    console.log("Server is running")
+})
+______________________________________________________
+
+	
+in Login.jsx
+
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios.post('http://localhost:3010/login', { email, password })
+      .then(result => {
+        console.log(result);
+        if (result.data === "Success") {
+          navigate('/home');
+        } else {
+          alert("Invalid email or password");
+        }
+      })
+      .catch(err => {
+        console.error("Login Error:", err);
+        alert("An error occurred. Please try again.");
+      });
+  };
+
+  return (
+    <div className="d-flex justify-content-center align-items-center vh-100" style={{ backgroundColor: '#5d6d7e' }}>
+      <div className="p-5 bg-white shadow rounded" style={{ width: '350px' }}>
+        <h2 className="mb-4">LOGIN</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Email</label>
+            <input type="email" className="form-control" placeholder="Enter Email" 
+              value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Password</label>
+            <input type="password" className="form-control" placeholder="Enter Password" 
+              value={password} onChange={(e) => setPassword(e.target.value)} required />
+          </div>
+
+          <button type="submit" className="btn btn-success w-100 mb-3">Login</button>
+        </form>
+        
+        <p className="text-center">Don't have an account?</p>
+        <Link to="/register" className="btn btn-secondary w-100">Singup</Link>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
+__________________________________________________
+
+in src --> create a file Home.jsx
+
+import React from "react";
+
+function Home(){
+    return(
+        <div>
+            home page
+        </div>
+    )
+}
+export default Home;
+
+__________________________________________________
+
+
+
+
+
+
+
+

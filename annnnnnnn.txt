@@ -1,0 +1,477 @@
+check node version
+node -v
+-----------------------
+1.	npm create vite@latest frontend ----> npm init vite    ----> project name 
+2.	Select a framework: React 
+3.	Select a variant: JavaScript 
+4.	After installation:
+	a.	  cd frontend
+	b.	  npm install
+	c.	  npm run dev
+
+
+_________________________________________________________
+
+5. Delete app.css and asset folder form src folder and .svg from public folder
+clear content from index.css
+
+_______________________________________________________________________________-
+delete same part of App.js 
+__________________________________________________________________________
+
+create a folder in src--> 	component--> create a file Navbar.jsx
+
+
+_________________________________________________________________________________
+
+8.	Install Bootstrap
+	a.	Type in terminal : npm install react-bootstrap bootstrap
+	b.	Paste this in main.jsx –
+		import "bootstrap/dist/css/bootstrap.min.css"; 
+	// Import Bootstrap CSS done
+
+go to bootstrap website select search for navbar select any code of your choice and paste it in navbar.jsx
+_______________________________________________________________
+
+Navbar.jsx
+
+import React from "react";
+
+function Navbar() {
+    return (
+        <>
+            <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                <div className="container-fluid">
+                    <a className="navbar-brand" href="#">Navbar scroll</a>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarScroll">
+                        <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style={{ "--bs-scroll-height": "100px" }}>
+                            <li className="nav-item">
+                                <a className="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Link</a>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Link
+                                </a>
+                                <ul className="dropdown-menu">
+                                    <li><a className="dropdown-item" href="#">Action</a></li>
+                                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link disabled" aria-disabled="true">Link</a>
+                            </li>
+                        </ul>
+                        <form className="d-flex" role="search">
+                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <button className="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </>
+    );
+}
+
+export default Navbar;
+____________________________________________________________________________________________________________________________________-
+
+App.js 
+add import React from "react"
+
+import React from "react"
+import ManiNavbar from "./component/ManiNavbar"
+
+function App() {
+ 
+
+  return (
+    <div>
+      <ManiNavbar />
+      
+    </div>
+      
+  )
+}
+
+export default App
+
+____________________________________________________________________________________________________________________________________
+
+
+7.Install react-router-dom
+	a.npm install react-router-dom
+
+	b.change main.jsx
+
+
+main.jsx
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter> );
+
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+install tailwind 
+
+npm install tailwindcss @tailwindcss/vite
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+______________________________________________
+
+c.put this in App.jsx
+ import { Routes, Route } from "react-router-dom";
+
+_____________________________________________________________
+
+src--> component --> create a Home folder --> create a file Herosec.jsx
+
+____________________________________________________________________________
+go to goole dow img
+
+____________________________________
+public --> create a folder image and past the img 
+
+___________________________________________-
+
+hero.jsx
+
+function Herosec() {
+    return (
+        <div style={{
+            display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center",
+            textAlign: "center"
+        }}>
+            <h1>Hero Section</h1> <br />
+            
+            <img src="/image/v2.jpg" alt="Hero" style={{ width: "80%", height: "auto" }} /> <br /> <br />
+            <img src="/image/v1.jpg" alt="Hero" style={{ width: "80%", height: "auto" }} /> <br /> <br />
+            <img src="/image/v10.jpg" alt="Hero" style={{ width: "80%", height: "auto" }} /> <br /> <br />
+            
+
+        </div>
+    )
+}
+export default Herosec;
+___________________________________________________________________________________________________
+
+in component ---> crate a folder About --> create a file About.jsx
+, crate a folder Login--> create a file Login.jsx
+crate a folder Contacts -->  create a file Contacts.jsx
+
+_______________________________________________
+
+
+create a all pages to strcuters 
+_____________________________________________
+
+GO to navbar file and import the links 
+import { Link } from "react-router-dom";
+
+
+_________________________________________________
+add the folloing items in Navbar>jsx
+
+<Nav.Link as={Link} to="/">Home</Nav.Link>
+            <Nav.Link as={Link} to="/about">About</Nav.Link>
+            <Nav.Link as={Link} to="/movies">Movies</Nav.Link>
+            <Nav.Link as={Link} to="/book">book Ticket</Nav.Link>
+            <Nav.Link as={Link} to="/ ">Logout</Nav.Link>
+
+
+
+______________________________________________
+in App.jsx add the import statements 
+import {  Routes , Route } from "react-router-dom"  
+
+
+ return (
+    <div>
+      <Navbar /> navbar also
+
+      <Routes>
+        <Route path="/" element={<div><Herosec /></div>} />  // routes path and name of the Routes 
+        <Route path="/1" element={<div><About /></div>} />
+        <Route path="/2" element={<div><Contacts /></div>} />
+        <Route path="/3" element={<div><Login /></div>} />
+
+      </Routes>
+    </div>
+  )
+
+
+____________________________________________________________________-
+
+
+in home folder --> create a file vision.jsx
+
+
+________________________________________________________________
+______________________________________________________
+----------------------------------------------------------------
+
+
+backend
+___________________________________
+create a folder server
+cd server
+npm init -y
+
+install nodemon
+npm install express mongoose cors nodemon
+
+________________________________________________________
+
+Install Axios
+in frontend folder 
+cd  frontend
+
+npm install axios
+
+ 
+
+_________________________________________________________________
+
+server in folder create a file index.js
+__________________________________________
+
+
+in server folder  package.js in that add the script
+
+
+ "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+
+_____________________________________________________________-
+
+
+in src--> com-->Login-->create a file Singup.jsx
+
+
+Singup.jsx
+
+
+<div className="d-flex justify-content-center align-items-center vh-100" style={{ backgroundColor: '#5d6d7e' }}>
+      <div className="p-5 bg-white shadow rounded" style={{ width: '350px' }}>
+        <h2 className="mb-4">Register</h2>
+
+        <div className="mb-3">
+          <label className="form-label">Name</label>
+          <input type="text" className="form-control" placeholder="Enter Name" />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Email</label>
+          <input type="email" className="form-control" placeholder="Enter Email" />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Password</label>
+          <input type="password" className="form-control" placeholder="Enter Password" />
+        </div>
+
+        <button className="btn btn-success w-100 mb-3">Register</button>
+
+        <p className="text-center">Already Have an Account</p>
+        <button className="btn btn-secondary w-100">Login</button>
+      </div>
+    </div>
+______________________________________________________________________________
+
+
+import in App.jsx
+
+import Singup from './Singup'
+
+and routers
+<Route path="/4" element={<div><Singup /></div>} />
+
+_________________________________________________________________-
+
+singup.jsx
+
+import React from 'react';
+import axios from 'axios';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+const Signup = () => {
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const navigate = useNavigate()
+    
+    
+    const handleSubmit = (e) =>{
+      e.preventDefault()
+      axios.post('http://localhost:3001/register',{name, email, password})
+      .then(result => {console.log(result)
+        navigate('/login')
+    
+    
+      })
+      .catch(err=>console.log(err))
+    }
+    
+      return (
+        <div className="d-flex justify-content-center align-items-center vh-100" style={{ backgroundColor: '#5d6d7e'}}>
+          <div className="p-5 bg-white shadow rounded" style={{ width: '350px' }}>
+            <h2 className="mb-4">Register</h2>
+            <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label">Name</label>
+              <input type="text" className="form-control" placeholder="Enter Name" onChange={(e)=>setName(e.target.value)}/>
+            </div>
+    
+            <div className="mb-3">
+              <label className="form-label">Email</label>
+              <input type="email" className="form-control" placeholder="Enter Email" onChange={(e)=>setEmail(e.target.value)}/>
+            </div>
+    
+            <div className="mb-3">
+              <label className="form-label">Password</label>
+              <input type="password" className="form-control" placeholder="Enter Password" onChange={(e)=>setPassword(e.target.value)}/>
+            </div>
+    
+            <button type="submit" className="btn btn-success w-100 mb-3">Register</button>
+            </form>
+            <p className="text-center">Already Have an Account</p>
+            <Link to="/login" className="btn btn-secondary w-100">Login</Link>
+          </div>
+        </div>
+      );
+    };
+export default Signup
+___________________________________________________________________________________________________
+
+	
+open monogdb
+
+add a connaction 
+give a database name is employee and collection name is register
+
+______________________________________________________________________
+in server folder create a folder Models 
+
+in models--> create a file Employee.js
+
+const mongoose = require("mongoose")
+
+const EmployeeSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String
+})
+
+const EmployeeModel=mongoose.model("employees", EmployeeSchema)
+
+module.exports=EmployeeModel
+_____________________________
+
+index.js 
+
+const express = require("express")
+const mongoose = require("mongoose")
+const cors = require("cors")
+
+const EmployeeModel = require('./Model/Employee')
+
+
+const app = express()
+app.use(express.json())
+app.use(cors())
+
+//mongobd cooncetion and coolection name is employee
+mongoose.connect("mongodb://127.0.0.1:27017/employee")
+
+//login Router
+app.post('/login',(req,res)=>{
+    const {email, password}=req.body;
+    EmployeeModel.findOne({email:email})
+    .then(user =>{
+        if(user){
+            if(user.password === password){
+                res.json("Success")
+            }
+            else{
+                res.json("the password is wrong")
+            }
+        }
+        else{
+            res.json("No Exit the record")
+        }	
+    })
+})
+//register router
+app.post('/register',(req,res)=>{
+    EmployeeModel.create(req.body)
+    .then(employees => res.json(employees))
+    .catch(err => res.json(err))
+})
+
+//listen port 3001
+app.listen(3001, ()=>{
+    console.log("Server is running")
+})
+__________________________________________________________________
+
+
+in src--> create a folder Main -->create a file Main.jsx
+
+Main.Jsx
+
+function Main(){
+    return(
+        <div>
+            <h1>My First React App</h1>
+        </div>
+    )
+}
+export default  Main
+
+_________________________________________
+import the routes in App.jsx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+		
+
+
+	
