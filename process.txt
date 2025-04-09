@@ -1,0 +1,142 @@
+process :check node version
+node -v
+-----------------------
+1.	npm create vite@latest frontend ----> npm init vite    ----> project name 
+2.	Select a framework: React 
+3.	Select a variant: JavaScript 
+4.	After installation:
+	a.	  cd frontend
+	b.	  npm install
+	c.	  npm run dev
+
+____________________________________________
+Install Axios
+in frontend folder 
+cd  frontend
+
+npm install axios
+__________________________________________
+5. Delete app.css and asset folder form src folder and .svg from public folder
+clear content from index.css
+delete same part of App.js 
+__________________________________________________________________________
+
+create a folder in src--> 	component--> create a file Navbar.jsx
+
+
+_________________________________________________________________________________
+
+8.	Install Bootstrap
+	a.	Type in terminal : npm install react-bootstrap bootstrap
+	b.	Paste this in main.jsx –
+		import "bootstrap/dist/css/bootstrap.min.css"; 
+	// Import Bootstrap CSS done
+
+go to bootstrap website select search for navbar select any code of your choice and paste it in navbar.jsx
+________________________________________________________________________________________________-
+
+
+7.Install react-router-dom
+	a.npm install react-router-dom
+
+	b.change main.jsx
+
+
+main.jsx
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter> );
+_____________________________________________________________
+
+c.put this in App.jsx
+ import { Routes, Route } from "react-router-dom";
+______________________________________________________
+GO to navbar file and import the links 
+import { Link } from "react-router-dom";
+___________________________________________________
+
+add the folloing items in Navbar>jsx
+
+<Nav.Link as={Link} to="/">Home</Nav.Link>
+            <Nav.Link as={Link} to="/about">About</Nav.Link>
+            <Nav.Link as={Link} to="/movies">Movies</Nav.Link>
+            <Nav.Link as={Link} to="/book">book Ticket</Nav.Link>
+            <Nav.Link as={Link} to="/ ">Logout</Nav.Link>
+________________________________________________________________
+
+in App.jsx add the import statements 
+import {  Routes , Route } from "react-router-dom"  
+
+
+ return (
+    <div>
+      <Navbar /> navbar also
+
+      <Routes>
+        <Route path="/" element={<div><Herosec /></div>} />  // routes path and name of the Routes 
+        <Route path="/1" element={<div><About /></div>} />
+        <Route path="/2" element={<div><Contacts /></div>} />
+        <Route path="/3" element={<div><Login /></div>} />
+
+      </Routes>
+    </div>
+  )
+
+_____________________________________________
+
+
+---------------------------------------backend---------
+
+create a folder server
+cd server
+npm init -y
+
+install nodemon
+npm install express mongoose cors nodemon
+____________________________________________________
+_________________________________________________________________
+
+server in folder create a file index.js
+__________________________________________
+
+
+in server folder  package.js in that add the script
+
+
+ "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+_______________________________________________________
+open monogdb
+
+add a connaction 
+give a database name is employee and collection name is register
+
+______________________________________________________________________
+in server folder create a folder Models 
+
+in models--> create a file Employee.js
+
+const mongoose = require("mongoose")
+
+const EmployeeSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String
+})
+
+const EmployeeModel=mongoose.model("employees", EmployeeSchema)
+
+module.exports=EmployeeModel
+__________________________________________________
+
+
